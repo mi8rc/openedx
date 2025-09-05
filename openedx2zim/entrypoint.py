@@ -114,7 +114,7 @@ def main():
     parser.add_argument(
         "--favicon-url",
         help="URL pointing to a favicon image. Recommended size >= (48px x 48px)",
-        default="https://github.com/edx/edx-platform/raw/master/lms/static/images/favicon.ico",
+        default="https://logos.openedx.org/open-edx-favicon.ico",
     )
 
     parser.add_argument(
