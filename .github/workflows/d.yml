@@ -1,0 +1,50 @@
+name: Build Offline Course
+
+on:
+  workflow_dispatch:  # manual trigger from GitHub UI
+
+jobs:
+  build-offline-course:
+    runs-on: ubuntu-22.04
+
+    steps:
+      # Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Python
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install python-magic-bin
+          pip install git+https://github.com/openzim/zimscraperlib.git@master
+          pip install .
+
+      # Run openedx2zim
+      - name: Run openedx2zim
+        run: |
+          mkdir -p offline_course
+          openedx2zim \
+            --course-url "https://iedra.uned.es/courses/course-v1:UNED+TYEPRO+2021/courseware/b6b1b7f294174ed599533d38521b065a/12b4695b2cb241c88b3f5f1762654830/1" \
+            --email "${{ secrets.UNED_EMAIL }}" \
+            --password "${{ secrets.UNED_PASSWORD }}" \
+            --name "tyepro2021" \
+            --title "Tecnicas y Estrategias Profesionales (2021)" \
+            --description "Offline export of the UNED iedra course Tecnicas y Estrategias Profesionales 2021" \
+            --creator "UNED" \
+            --publisher "iedra.uned.es" \
+            --tags "UNED,iedra,tyepro2021,course" \
+            --output "offline_course"
+
+      # Upload the ZIM artifact
+      - name: Upload ZIM
+        uses: actions/upload-artifact@v3
+        with:
+          name: tyepro2021-zim
+          path: offline_course/*.zim
