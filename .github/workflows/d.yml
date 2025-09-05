@@ -31,7 +31,7 @@ jobs:
               --publisher "iedra.uned.es" \
               --tags "UNED,iedra,tyepro2021,course" \
               --output "/offline_course" \
-              --skip-extras
+    
 
       - name: Upload ZIM
         uses: actions/upload-artifact@v4
