@@ -31,6 +31,7 @@ jobs:
               --publisher "iedra.uned.es" \
               --tags "UNED,iedra,tyepro2021,course" \
               --output "/offline_course" \
+              --favicon-url "https://logos.openedx.org/open-edx-favicon.ico" \
     
 
       - name: Upload ZIM
