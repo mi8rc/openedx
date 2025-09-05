@@ -37,5 +37,5 @@ jobs:
       - name: Upload ZIM
         uses: actions/upload-artifact@v4
         with:
-          name: tyepro2021-zim
-          path: offline_course/*.zim
+          name: tyepro2021-zims
+          path: .
