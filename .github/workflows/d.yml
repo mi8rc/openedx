@@ -8,16 +8,21 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      # Checkout the repo (optional if you need local scripts)
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      # Pull the Docker image with the dev tag
       - name: Pull Docker image
-        run: docker pull ghcr.io/openzim/openedx:latest
+        run: docker pull ghcr.io/openzim/openedx:dev
 
-      - name: Run openedx2zim inside Docker
+      # Run openedx2zim inside Docker
+      - name: Run openedx2zim
         run: |
           mkdir -p offline_course
-          docker run --rm -v ${{ github.workspace }}/offline_course:/offline_course ghcr.io/openzim/openedx:latest \
+          docker run --rm \
+            -v ${{ github.workspace }}/offline_course:/offline_course \
+            ghcr.io/openzim/openedx:dev \
             openedx2zim \
             --course-url "https://iedra.uned.es/courses/course-v1:UNED+TYEPRO+2021/courseware/b6b1b7f294174ed599533d38521b065a/12b4695b2cb241c88b3f5f1762654830/1" \
             --email "${{ secrets.UNED_EMAIL }}" \
@@ -30,6 +35,7 @@ jobs:
             --tags "UNED,iedra,tyepro2021,course" \
             --output "/offline_course"
 
+      # Upload the ZIM artifact
       - name: Upload ZIM
         uses: actions/upload-artifact@v4
         with:
