@@ -23,18 +23,7 @@ jobs:
           docker run --rm \
             -v ${{ github.workspace }}/offline_course:/offline_course \
             ghcr.io/openzim/openedx:dev \
-            openedx2zim \
-            --course-url "https://iedra.uned.es/courses/course-v1:UNED+TYEPRO+2021/courseware/b6b1b7f294174ed599533d38521b065a/12b4695b2cb241c88b3f5f1762654830/1" \
-            --email "${{ secrets.UNED_EMAIL }}" \
-            --password "${{ secrets.UNED_PASSWORD }}" \
-            --name "tyepro2021" \
-            --title "Tecnicas y Estrategias Profesionales (2021)" \
-            --description "Offline export of the UNED iedra course Tecnicas y Estrategias Profesionales 2021" \
-            --creator "UNED" \
-            --publisher "iedra.uned.es" \
-            --tags "UNED,iedra,tyepro2021,course" \
-            --output "/offline_course"
-
+            openedx2zim --course-url "https://iedra.uned.es/courses/course-v1:UNED+TYEPRO+2021/course/" --email "dballeste38@alumno.uned.es" --password "cogitoergosum" --name "tyepro2021" --title "Tecnicas y Estrategias Profesionales (2021)" --description "Offline export of the UNED iedra course Tecnicas y Estrategias Profesionales 2021" --creator "UNED" --publisher "iedra.uned.es" --tags "UNED,iedra,tyepro2021,course" --output "course"
       # Upload the ZIM artifact
       - name: Upload ZIM
         uses: actions/upload-artifact@v4
